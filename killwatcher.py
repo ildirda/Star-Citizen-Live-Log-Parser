@@ -23,8 +23,6 @@ PINK = BOLD + MAGENTA
 
 
 # Llistes personalitzables
-import requests
-
 LLISTES_URL = "https://raw.githubusercontent.com/ildirda/Star-Citizen-Live-Log-Parser/main/llistes.txt"
 
 def load_lists():
@@ -239,7 +237,7 @@ def highlight_all(msg):
 
 def highlight_murder(msg, victim, killer):
     out = msg.replace("assassinat per", f"{BOLD}assassinat per{RESET}")
-    out = out.replace("destruït una", f"{BOLD}destruït una{RESET}")
+    out = out.replace("ha destruït una", f"{BOLD}ha destruït una{RESET}")
     out = out.replace("apunta míssils", f"{BOLD}apunta míssils{RESET}")
     out = out.replace("Ha aparegut", f"{BOLD}Ha aparegut{RESET}")
     # Coloreja nicks
@@ -251,7 +249,7 @@ def highlight_murder(msg, victim, killer):
 
 def highlight_user(msg, *args):
     out = msg.replace("assassinat per", f"{BOLD}assassinat per{RESET}")
-    out = out.replace("destruït una", f"{BOLD}destruït una{RESET}")
+    out = out.replace("ha destruït una", f"{BOLD}ha destruït una{RESET}")
     out = out.replace("apunta míssils", f"{BOLD}apunta míssils{RESET}")
     out = out.replace("Ha aparegut", f"{BOLD}Ha aparegut{RESET}")
     return highlight_all(out)
@@ -286,7 +284,7 @@ def detect_vehicle_destruction(line):
     if match:
         d = match.group
         destroyed_by_print = highlight_external_nick(d(6))
-        msg = f"{d(1)[8:10]}/{d(1)[5:7]}/{d(1)[2:4]} · {d(2)} - {destroyed_by_print} destruït una {d(3)}"
+        msg = f"{d(1)[8:10]}/{d(1)[5:7]}/{d(1)[2:4]} · {d(2)} - {destroyed_by_print} ha destruït una {d(3)}"
         if d(5) != "unknown":
             msg += f" a ( {d(5)} )"
         return msg
@@ -330,8 +328,7 @@ def main():
     messages_shown = set()
     last_msg, last_msg_core, last_highlight_func, last_args, repeat_count = None, None, None, None, 0
 
-    with open(output_filename, "a", encoding="utf-8") as output_file, \
-         open(LOG_FILENAME, 'r', encoding="latin1") as log_file:
+    with open(LOG_FILENAME, 'r', encoding="latin1") as log_file:
 
         def flush_last():
             nonlocal last_msg, last_msg_core, repeat_count, last_highlight_func, last_args

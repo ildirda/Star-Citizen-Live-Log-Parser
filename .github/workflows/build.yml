@@ -1,0 +1,41 @@
+name: Build Windows EXE
+
+on:
+  push:
+    tags:
+      - 'v*'      # només compilarà quan creïs una tag v1.0, v2.0, etc
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Build exe with PyInstaller
+        run: pyinstaller --onefile killwatcher.py
+
+      - name: Calculate SHA256
+        shell: bash
+        run: |
+          cd dist
+          sha256sum killwatcher.exe > killwatcher.exe.sha256
+
+      - name: Upload artifacts to release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/killwatcher.exe
+            dist/killwatcher.exe.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

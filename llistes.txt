@@ -1,0 +1,4 @@
+PLAYERS_BLACKLIST = ["HiuSs", "Azrael4000"]
+PLAYERS_WHITELIST = ["Ikan_0", "Darka1ian"]
+ORGS_BLACKLIST = ["OEC2", "Outer Heaven", "Initiative Omega"]
+ORGS_WHITELIST = ["Catalan Company", "COTFSM"]

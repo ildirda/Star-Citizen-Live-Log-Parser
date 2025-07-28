@@ -1,7 +1,3 @@
-os
-sys
-time
-re
 requests
 lxml
 colorama

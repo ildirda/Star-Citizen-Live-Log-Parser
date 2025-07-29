@@ -404,4 +404,4 @@ if __name__ == "__main__":
         print()
         print("ERROR: " + str(e))
         print()
-        input("Prem qualsevol tecla per sortir...")
+        input("Prem una tecla per sortir...")

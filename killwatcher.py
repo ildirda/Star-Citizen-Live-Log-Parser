@@ -10,7 +10,7 @@ colorama.init()
 
 # -------------------- CONSTANTS --------------------
 
-DEF_LOG = r"C:\Program Files\Roberts Space Industries\StarCitizen\LIVE\Game.log"
+#DEF_LOG = r"C:\Program Files\Roberts Space Industries\StarCitizen\LIVE\Game.log"
 
 # Colors i estil
 BOLD = '\033[1m'
@@ -73,7 +73,7 @@ def get_config():
         nick = input("Introdueix el teu nick de Star Citizen: ").strip()
 
     # 1. Prova primer el log per defecte
-    if os.path.isfile(DEF_LOG):
+    if 'DEF_LOG' in globals() and os.path.isfile(DEF_LOG):
         log_path = DEF_LOG
         use_default = True
     else:
